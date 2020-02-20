@@ -1,33 +1,63 @@
 \documentclass[british,titlepage]{ntnuthesis}
 
-\title{An NTNU Thesis \LaTeX{} Document Class}
-\shorttitle{An NTNU Thesis Document Class}
-\author{Community of Practice in Computer Science Education at NTNU}
-\shortauthor{CoPCSE$@$NTNU}
-\date{CC-BY \ntnuthesisdate}
+\title{Immersive Virtual Field Trip in VR With Omnidirectional Treadmill for Field Course in Physical Geography}
+\shorttitle{Virtual Field Trip With Treadmill}
+\author{Stian Bentsen Malmanger}
+\shortauthor{S. B. Malmanger}
+\date{\today}
 
 \addbibresource{thesis.bib}
+
+% stianbm start ----------------------------------------------------------------------------------------------------------------------
+% Spacing to put i.e. between section parts or bullet points
+\newcommand{\SPACE}{\vspace{0.4cm}}
+% Central variable for image width
+\newcommand{\ImageWidth}{0.8\linewidth}
+% Package for FloatBarrier to lock images to a position
+\usepackage{placeins}
+% Todo command stolen from "master-theses-NTNU-master"
+\newcommand{\todo}[1]{{\color{green}#1}} % items to do
+% No indents on paragraphs
+\setlength{\parindent}{0pt}
+% More space between paragraphs
+\setlength{\parskip}{7pt}
+% More space between rows in tables
+\renewcommand{\arraystretch}{1.5}
+% Counter for table rows
+\newcounter{rownumbers}
+\newcommand\rownumber{\stepcounter{rownumbers}\arabic{rownumbers}}
+% For automatic rownumbers in tables
+\usepackage{array, adjustbox}
+% For fixin' table widths
+\usepackage{tabularx}
+% Changeable application name
+\newcommand{\ApplicationName}{Oppdal VR Field Trip}
+% stianbm end ------------------------------------------------------------------------------------------------------------------------
 
 \begin{document}
 
 \input{chapters/0a-abstract.tex}
 \input{chapters/0b-sammendrag.tex}
+\input{chapters/0c-acknowledgements.tex}
 
 \tableofcontents
 \listoffigures
 \listoftables
 \lstlistoflistings
+\input{chapters/0d-glossary}
 
 \input{chapters/1-introduction}
-\input{chapters/2-usage.tex}
-\input{chapters/3-structure.tex}
-\input{chapters/4-conclusion.tex}
+\input{chapters/2-background.tex}
+\input{chapters/3-implementation.tex}
+\input{chapters/4-results.tex}
+\input{chapters/5-discussion.tex}
+\input{chapters/6-conclusion.tex}
 
 \printbibliography
 
-\input{chapters/papers.tex}
+%\input{chapters/papers.tex}
 
 \appendix
-\input{appendices/a-appendix.tex}
+%\input{appendices/a-appendix.tex}
 
 \end{document}
