@@ -2,7 +2,7 @@
 \section{Motivation}
     \label{sec:motivation}
     % Explain why the thesis is written. How will it contribute and what is the current status of things in the field.
-    This master's thesis is a collaboration between the Innovative Immersive Technologies for Learning (IMTEL) VR lab an the Department of Geography, both at NTNU. The project is a continuation of the specialisation project \emph{Immersive Virtual Field Trip for Field Course in Physical Geography}\cite{specialisation}.
+    This master's thesis is a collaboration between the Innovative Immersive Technologies for Learning (IMTEL) VR lab an the Department of Geography, both at NTNU. The project is a continuation of the Specialisation Project \emph{Immersive Virtual Field Trip for Field Course in Physical Geography}\cite{specialisation}.
     
     Field trips are an important part of many courses, especially those surrounding nature. They do however carry many limitations and are generally costly and time intensive to perform. \emph{Virtual Field Trips} can help to get the most out of the field trips, especially by aiding students to prepare. In future Virtual Field Trips might even replace certain field trips, or offer an alternative to people who are hindered from attending.
     
@@ -15,11 +15,30 @@
     As there already are Virtual Field Trip applications, there is also existing research on the subject. One of the leading sources of the research is Penn State University. From a news article at Hypergrid Business\cite{hypergrid} the research is summarised as collecting data on both real and virtual field trips, concluding that students are very positive the Virtual Field Trips. In an article from Penn State in 2017, Klippel and others\cite{developing_and_evaluating} evaluated the current development of VR field trips. They found that many earlier barriers had been overcome and that VR technology was ready to become more prominent in the market, something it arguably was and is still doing. Their research is however centred around simplistic Virtual Field Trips where interaction mostly is limited to looking around. The focus of this master's thesis is therefore around applications with more game-like interaction.
     
 \section{Stakeholders and Target Audience}
+    The identified \textbf{stakeholders} for the master's project are as follows:
     
+    \todo{Is sensors the right word?}
+    
+    \begin{enumerate}
+        \item \textbf{Sensors} \\
+        In the end the master's project is to be graded, and it is designed for the students to show they are capable of performing a research project. Because of this the direction of the project and the quality of the report focus on proving this.
+        
+        \SPACE
+        
+        \item \textbf{Institute of Geography} \\
+        As the main collaborator on the project, the Institute of Geography helps guide the learning outcome of the project. As the eventual owners of the application, they also provide input when prioritising features for the applications.
+        
+        \SPACE
+        
+        \item \textbf{IMTEL} \\
+        The developed applications are to be specific in content, but developed using general and customizable components. Some of these components can then be added to IMTEL's collection of general script to improve future development. This affects the code quality of the master's project.
+    \end{enumerate}
+    
+    The \textbf{target audience} of the \ApplicationName are the students of GEOG - 2012 Field Course in Physical Geography. This is an introduction course focusing on planning and performing a field course. The academic content included in the application can therefore be on a level where everyone trying it can learn something about the physical geography in the Vekveselva area.
 
 \section{Research Questions}
     % Can iVFT contribute to better learning for a course with field trip?
-    The research of this project will be centred around developing and testing the new \ApplicationName. LiDAR, a type of laser scanning, will be used to recreate a topological model of the area. Stereoscopic 360 images will be included to show the actual landscape and gameplay elements will be included to motivate and educate the users. The \ApplicationName \hspace{0.1cm}will be compared to a simpler, more scaleable application supplied by Penn State university, using the same images. The research questions of this master's thesis are:
+    The research of this project will be centred around developing and testing the new \ApplicationName. LiDAR, a type of laser scanning, will be used to recreate a topological model of the area. Stereoscopic 360 images will be included to show the actual landscape and gameplay elements will be included to motivate and educate the users. The \ApplicationName \hspace{0.1cm}will be compared to a simpler, more scaleable application supplied by Penn State university, using the same images. The research questions are based on those found in the Specialisation Project\cite{specialisation}, but have been improved and further explained:
     
     \SPACE
     
@@ -65,22 +84,33 @@
     Oates'\cite{research} Model of the Research Process is used to describe how this master's thesis is conducted. Simplified, Oates' model describes the research process divided into seven main parts, as seen in \cref{fig:oates}:
     
     \FloatBarrier
-    \begin{figure}
+    \begin{figure}[htbp]
         \centering
-        \includegraphics[width=\ImageWidth]{figures/oates.png}
+        \includegraphics[width=\ImageWidth]{figures/oates_highlighted.png}
         \caption{Oates' Model of the Research Process}
         \label{fig:oates}
     \end{figure}
     \FloatBarrier
-    
-    \todo{Highlight the used parst of oates' model}
     
     The four first parts of the research process are stated to be more or less the same for all types of research. These are the four ''boxes'' to the left of \cref{fig:oates}: Experiences and motivation, Research questions, State-of-the-art/Literature review and Conceptual framework. The personal experience and motivation combined with a literature review create the research questions. The literature review also leads to the conceptual framework that \emph{''makes explicit how you structure your thinking about your research topic and the process undertaken''}. The remaining three categories have elements that can differ depending on the type of research. As indicated in the figure, one research question typically leads to one strategy, whereas a strategy can lead to several methods of data generation.
     
     \SPACE
     
     \subsection*{Research Method of this Master's Thesis}
-    This master's thesis conforms with Oates' model, with the four first parts present. This means that the project starts with existing experiences and motivation from the author. Combined with the literature review of the topic, research questions can be made. Additionally the conceptual framework of the terminology and relations take form and will be present throughout the thesis. The \textbf{Design and Create} strategy will be used to answer all of the presented research questions. This is done by implementing the application, allowing it to be tested and compared to other applications. Three data generation methods arise from the strategy: \textbf{Interviews}, \textbf{Observation} and \textbf{Questionnaires}. Students of the relevant course and domain experts will be invited to test the application. During these tests the users will be observed, then answer questionnaires and/or interviews. Finally, the data analysis approach will be both \textbf{Qualitative} and \textbf{Quantitative}. The Questionnaires will be the main data source for the quantitative data analysis, whereas the interviews and observations will supply data for the qualitative data analysis.
+    The research method was identified in the Specialisation Project\cite{specialisation}. This master's thesis conforms with Oates' model, with the four first parts present. This means that the project starts with existing experiences and motivation from the author. Combined with the literature review of the topic, research questions can be made. Additionally the conceptual framework of the terminology and relations take form and will be present throughout the thesis. The \textbf{Design and Create} strategy will be used to answer all of the presented research questions. This is done by implementing the application, allowing it to be tested and compared to other applications. Three data generation methods arise from the strategy: \textbf{Interviews}, \textbf{Observation} and \textbf{Questionnaires}. Students of the relevant course and domain experts will be invited to test the application. During these tests the users will be observed, then answer questionnaires and/or interviews. Finally, the data analysis approach will be both \textbf{Qualitative} and \textbf{Quantitative}. The Questionnaires will be the main data source for the quantitative data analysis, whereas the interviews and observations will supply data for the qualitative data analysis.
 
-\section{Data handling}
-    \todo{Write about data handling (GDPR) when running user tests}
+\section{Data Handling}
+    % GDPR and group application from NSD
+    % Questionnaire
+    % Semi-structured interview
+    When performing user tests, the data handling needs to be in accordance with the General Data Protection Regulation (GDPR)\cite{gdpr_eu}. In order to make sense of the regulations an article from \texttt{medium.com} detailing best practices of data handling was used. Following these practices, as little sensitive information as possible was collected. For the general questionnaires this meant none, focusing the questions on the application. For the semi-structured interviews, some personal information had to be kept. The practice of as-little-as-possible was still followed, and the interviews were recorded on non-internet connected devices, transcribed and anonymised. A group application was sent to the Norwegian Centre for Research Data to allow the collection of this data.
+    
+    \todo{Update data handling after data has actually been handled}
+    
+    \subsection*{Questionnaire}
+        The questionnaire was constructed to check which of the two applications the user tested and whether or not they had also tested the other. The users were also asked about their knowledge gain and how well they learned the area after using the application. Some questions from a short user experience questionnaire, provided by \texttt{ueq-online.org}\cite{ueq_questionnaire}, was used to assess the user experience of the applications. A question to investigate VR sickness was also added. The questionnaires were created using Google Forms\cite{google_forms}. Online questionnaires have the issue of potentially logging the IP address of the user. This was circumvented by using one laptop for all the users, ensuring that IP addresses could not be linked to the answers. The questionnaire was also printed out to allow multiple users to answer at the same time. These questionnaires were then later added to the same database as the online questionnaire.
+        
+        \todo{Add questionnaire to appendix and cref}
+    
+    \subsection*{Semi-structured Interview}
+        

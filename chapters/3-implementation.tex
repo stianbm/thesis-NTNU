@@ -44,9 +44,11 @@
     \end{table}
     \FloatBarrier
 
-\section{Minimal Viable Product}
+\section{Development Methodology: MVP}
     % A prioritised list of features to be implemented. The first points are regarded as minimum to be completed. Create the list together with domain experts and supervisor.
-    The development technique for creating the new Oppdal Application is the Minimal Viable Product (MVP) approach. Techopedia\cite{techopedia} defines this at the technique where a product is developed containing the bare minimum functionality. Then, more features are added, typically through feedback produced by the MVP. This technique has two major benefits for this master's thesis. Firstly, it allows users to be included as early as possible in order to better guide the product from an early part of the development when changes are less cumbersome to make. Secondly, it allows for more dynamic planning, as the developer is less experienced in the tools and frameworks necessary to develop the application. This is likely to result in less time used for planning and re-planning due to the uncertainty in time estimates. The plan for the MVP is a prioritised list as can be seen below. The line separates the ''must-have'' features of the MVP from the ''if-time'' features that can be added.
+    The development methodology for creating the \ApplicationName \hspace{0.1cm} is the Minimal Viable Product (MVP) approach. Techopedia\cite{techopedia} defines this at the technique where a product is developed containing the bare minimum functionality. Then, more features are added, typically through feedback produced by the MVP. This technique has two major benefits for this master's thesis. Firstly, it allows users to be included as early as possible in order to better guide the product from an early part of the development when changes are less cumbersome to make. Secondly, it allows for more dynamic planning, as the developer is less experienced in the tools and frameworks necessary to develop the application. This is likely to result in less time used for planning and re-planning due to the uncertainty in time estimates. The plan for the MVP is a prioritised list as can be seen below. The line separates the ''must-have'' features of the MVP from the ''if-time'' features that can be added.
+    
+    The development also followed a continuous iterative approach. When possible, the application was tested on students to gather feedback. This feedback was used both to improve the features already present, but also to discover new functionality that could be added. The development had no set length for the iterations. This was to, as explained above, focus time on development instead of planning.
     
     \todo{Write more about development methodology}
     
@@ -60,18 +62,16 @@
         Recreate topology from LiDAR \\
         Re-texture topology \\
         Decorate area with prefabs of trees and grass \\
-        Incorporate existing image viewer for 360 VR images \\
-        Implement a menu for starting and exiting the application \\
-        Implement game mechanic (\emph{to be discussed exactly what}) \\
+        Implement image viewer for 360 stereoscopic images \\
+        Implement a task for pointing at different parts of the images \\
         \hline
-        Convert image viewer from plateau to spheres and texture either them or the surroundings with the images (\emph{to be discussed - is it necessary / prioritised?}) \\
+        Implement a menu for starting and exiting the application \\
+        Implement different models for ''Storskredet'' and a way to switch between them \\
         Implement more game mechanics \\
-        Improve prefab decorations of the area
+        Improve prefab decorations of the area \\
     \end{tabular}
     \end{table}
     \FloatBarrier
-    
-    \todo{Update with latest agreed list from domain expert}
 
 \section{Development Plan}
     % Create a time table with milestones
@@ -91,7 +91,7 @@
         14th of April & Finish prototype development and freeze code. Finish questionnaires for testing and tasks for the Penn State application. \\
         End of April & Finish user testing with students and finish interview questions for domain experts \\
         End of Mai & Finish user testing, interviewing domain experts and finish comparison of applications \\
-        10 of June & Finish structuring and analyse collected data, finalise the project and the report \\
+        10 of June & Finish structuring and analyse collected data, finalise the project and the report, export any assets that can be reused by IMTEL \\
         \hline
     \end{tabular}
     \end{table}
@@ -121,6 +121,8 @@
     % Blender       - export .fbx and texture image
     % Unity         - import .fbx and texture image
     As explained more in detail in the Specialisation Project\cite{specialisation}, the topology has been recreated from LiDAR scanning of the area, publicly available at Kartverket\cite{hoydedata}. The complete pipeline for creating a usable model for the ground without sacrificing too much performance is a long and iterative one. In order to get an overview of the process, as well as details and reasoning, the entire pipeline is presented as a numbered list in \cref{tab:pipeline}, followed by sections detailing the steps. The numbered list also contains a column showing which software or service is used in each step.
+    
+   The reconstruction pipeline is based on Specialisation Project which is again based on the master's thesis by Staurset\cite{ski_jump}. The pipeline has been expanded and more thoroughly detailed to provide a better overview of the process.
     
     \setcounter{rownumbers}{0}
     
@@ -186,27 +188,57 @@
         \FloatBarrier
         \begin{figure}[htbp]
             \centering
-            \includegraphics[width=\ImageWidth]{figures/model_original.PNG}
-            \caption{Partitioning of the Model Before Simplification}
+            \includegraphics[width=\ImageWidth]{figures/ground_partitioning.PNG}
+            \caption{Partitioning of the Ground Model Before Simplification}
             \label{fig:model_original}
         \end{figure}
         \FloatBarrier
-        
-        \todo{Update partition image}
     
     \subsection{Simplify Model in Meshlab}
-        With the model divided into different parts, they can be simplified tailored to their importance. The Quadratic Edge Collapse Decimation algorithm was used to achieve this. This simplification allows to preserve the general topology, as well as the edges of the final model. This is important as the different parts of the model need to fit together at the end. The simplification was controlled by stating the percentage of vertices that should survive. Different percentages was tested for the ground models, to trade off quality against file size. As the models had a very high vertex count, the walkway was scaled to 15 \% of original vertex count, the main area was set to 2 \% and the rest were set to 0.1 \%.
+        With the model divided into different parts, they can be simplified tailored to their importance. The Quadratic Edge Collapse Decimation algorithm was used to achieve this. This simplification allows to preserve the general topology, as well as the edges of the final model. This is important as the different parts of the model need to fit together at the end. The simplification was controlled by stating the percentage of vertices that should survive. Different percentages was tested for the ground models, to trade off quality against file size. As the models had a very high vertex count, the walkway was scaled to 15 \% of original vertex count, the main area was set to 2 \% and the rest were set to 0.1 \%. In \cref{fig:post_simplification} this simplification is most visible in the outer area.
         
-        \todo{Input image of post-simplification}
+        \FloatBarrier
+        \begin{figure}[htbp]
+            \centering
+            \includegraphics[width=\ImageWidth]{figures/post_simplification.PNG}
+            \caption{Ground Model After Simplification}
+            \label{fig:post_simplification}
+        \end{figure}
+        \FloatBarrier
     
     \subsection{Rework and Texture Model in Blender}
         Although the recreation of the walkway was successful, the omnidirectional treadmill needs more space than a person would normally need. This is because it is less precise than actual walking, as well as a little harder to control. To accommodate this the walkway was reworked in Blender to provide a flatter surface for the players. When the three ground models were ready, they were textured using a satellite image from Google Maps. Finally the ground models were exported as \texttt{.fbx} files, as Unity does not support the \texttt{.ply} format.
         
-        \todo{Input image of post rework}
+        \FloatBarrier
+        \begin{figure}[htbp]
+            \centering
+            \begin{minipage}[b]{0.4195\textwidth}
+                \includegraphics[width=\textwidth]{figures/walkway_before_rework.PNG}
+                \caption{Walkway Before Rework}
+            \end{minipage}
+            \begin{minipage}[b]{0.4\textwidth}
+                \includegraphics[width=\textwidth]{figures/walkway_after_rework.PNG}
+                \caption{Walkway After Rework}
+            \end{minipage}
+        \end{figure}
+        \FloatBarrier
 
 \section{Implementation in Unity}
     % How stuff was made in Unity, potentially code snippets.
+    \subsection{Overall Architecture}
+        % Class diagram
+        % Component interaction
+        % Preload scene, dontdestroyonload
+    
+    \subsection{The Player}
+        % Add treadmill to SteamVR player
+    
     \subsection{Viewing Stereoscopic 360 Images}
+        In order to view the stereoscopic 360 images, the tutorial of Heavers\cite{skybox_images} was followed. This solution uses a custom shader to project the images to the skybox of the game world. This method can be used by loading a new empty scene with the custom skybox or change the skybox of the main world. The latter way was chosen in an effort to reduce load time when activating the image mode. When activating the image mode, the rest of the game world is hidden from the player, and the skybox material is changed to the appropriate image.
+        
+        \todo{Write more once ImageViewer feature is 100\% done}
+    
+    \subsection{Different Landslide Models}
     
     \subsection{Decorating the Game World}
 
@@ -225,8 +257,9 @@
             2020-02-04 & Finished ground models \\
             2020-02-06 & Meeting with domain expert to discuss interaction elements and content to be included \\
             2020-02-13 & Supervisor meeting to discuss research questions and gameplay elements \\
-            2020-02-25 & \todo{User testing with geography students} \\
-            2020-02-\todo{?} & \todo{Domain expert test of images} \\
+            2020-02-25 & User testing of both apps by geography students \\
+            2020-02-27 & Domain expert test of application \\
+            2020-03-27 & \todo{Test on visitors to lab, maybe just Penn State app} \\
             \hline
         \end{tabular}
         \caption{Achieved milestones}
