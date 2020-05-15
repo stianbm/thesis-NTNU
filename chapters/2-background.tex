@@ -1,11 +1,15 @@
 \chapter{Background}
 \label{chap:background}
 
-\todo{Should information about the Vekveselva be included, or is it simply no interesting / important?}
+%\todo{Should information about the Vekveselva be included, or is it simply no interesting / important?}
+
+\section{Immersive Virtual Field Trip for Field Course in Physical Geography}
+    \label{sec:specialisation}
+    This master's thesis builds on a specialisation project \cite{specialisation} that was done the previous (autumn) semester. Many preparations to this project was performed in that project. It started of with a literature review and joining the actual field trip to get the experience and take 360$^\circ$ degree images. The project also researched into recreating topology from LiDAR scans. In the end a simple prototype was created and evaluated by domain experts in geography.
 
 \section{Theory and Technology}
     % About technology, both software and hardware that is currently on the market
-    A literature review of the theory and technology of the field was conducted in the Specialisation Project of this master's thesis continue from. The following section is therefore directly extracted from said project\cite{specialisation}, with the exception of \cref{sec:threei}, \cref{sec:league} and \cref{sec:summary}\todo{Fill in cref} that have been added.
+    A literature review of the theory and technology of the field was conducted in the Specialisation Project that this master's thesis continue from. The following section is therefore directly extracted from said project\cite{specialisation}, with the exception of \cref{sec:threei}, \cref{sec:league} and \cref{sec:summary}\todo{Fill in cref} that have been added.
     
     \subsection{Different Types of Realities}
         % Continuum between real and virtual environment
@@ -136,8 +140,6 @@
                         \label{fig:oculus_go}
                     \end{figure}
                     \FloatBarrier
-                
-                \todo{About Oculus Quest in case it will be used. Is that just unnecessary introduction of variables?}
             
             \subsection{Omnidirectional Treadmill}
             \label{sec:omni}
@@ -154,10 +156,18 @@
             The Omni is an Omnidirectional Treadmill developed by Virtuix \cite{omni} and will be used as hardware for movement for the new application in the project. It is compatible with the HTC Vive Pro head mounted display. As illustrated in \cref{fig:omni} it consists of a concave surface, low friction shoe covers and a harness to keep the player in place. The Omni tracks the orientation of the player from the harness, as well as the feet movement by wireless sensors connected to the shoe covers. The movement of the feet is then transformed to in-game motion. The Omni can be used by an SDK\footnote{Software Development Kit} \cite{omni_sdk}, and Virtuix supplies SDKs for both the Unity and Unreal game engine. From Omni's web pages it can be seen that the applications featured are all of the entertaining type. This is indicative of it being mainly used for games and not for education.
     
     \subsection{Virtual Field Trips}
-        Virtual Field Trips (VFTs) are becoming more common in STEM\footnote{Science, Technology, Engineering and Math} education, where the areas of study that most implement the Virtual Field Trips are geography, geoscience and architecture. Virtual Field Trips are, as the name implies, simulations of field trips meant to either support or replace the actual field trip. Even though they become more prominent, there are still numerous constraints to creating and using these applications, where many of the constraints revolve around the lack of tools that allow domain experts to create the Virtual Field Trips themselves\cite{vft_geoscience}. Despite these challenges, some evidence point towards the Virtual Field Trips having positive impacts on the courses. Research and experiments done by Kathy Jackson et al \cite{ivft_effectiveness} at Penn State University states that other research done on the effectiveness have shown inconsistent result, whereas they themselves found very positive impact on learning, enjoyment and grades. The inconsistent results can indicate that the topic needs more research.
+        \label{sec:vft}
+        Virtual field trips are becoming more common in STEM\footnote{Science, Technology, Engineering and Math} education, where the areas of study that most implement the virtual field trips are geography, geoscience and architecture. Virtual Field Trips are, as the name implies, simulations of field trips meant to either support or replace the actual field trip. Even though they become more prominent, there are still numerous constraints to creating and using these applications. Many of the constraints revolve around the lack of tools that allow domain experts to create the virtual field trips themselves\cite{vft_geoscience}. Despite these challenges, some evidence point towards the virtual field trips having positive impacts on the courses. Research and experiments done by Kathy Jackson and more \cite{ivft_effectiveness} at Penn State University states that other research done on the effectiveness have shown inconsistent result, whereas they themselves found very positive impact on learning, enjoyment and grades. The inconsistent results can indicate that the topic needs more research.
+        
+        The researchers at Pennsylvania State University later compared three types of field trips: actual field trips (AFT), immersive virtual field trips (iVFT) using VR and desktop virtual field trips (dVFT)\cite{learning_in_the_field}. They found that the iVFT with VR was more engaging than it's desktop counterpart, but gave the same learning outcome. Curiously both the iVFT and dVFT scored better than the actual trip when measuring perceived learning outcomes. Their two key points out if these results are that VFTs can contribute positively to learning outcome, but does not necessarily have to be in VR.
+        
+        \todo{Talk about this in discussion}
+        
+        Similarly, research at Inland Norway University of Applied Sciences\cite{innland_university} investigated immersive virtual environments (IVEs). Immersive virtual environments are defined, by an article from two American universities investigating psychological experiments\cite{ive_definition}, so that \textit{"the user is perceptually surrounded by the VE (Virtual Environment"}. This is very similar to the definition of virtual reality, but with focus on the environment itself instead of the person's reality. It is also related to immersive virtual field trips that try to replicate real areas, but with learning as its main objective. The Inland researchers compared a real walk with a sitting VR application and a treadmill VR application. Their findings were that the sitting and treadmill VR applications performed similarly, but both suffered in enjoyment because of VR sickness. The immersive virtual environments still performed well on presence and replicating the real walk. This points to the quality of applications, and their ability to avoid vr sickness, to be and important challenge of immersive virtual environments and immersive virtual field trips.
+        \cite{ive}
     
     \subsection{VR Virtual Field Trips}
-        Virtual Field Trips are not necessarily in VR, but VR is the focus of this master's project. The current trend when it comes to the use of VR Virtual Field Trips is to use \emph{low-level} VR applications, meaning VR applications that run on low-cost hardware and that can be created with relatively low cost, effort and VR expertise \cite{vr_low_cost}. An opportunity that is present in these low cost VR applications is to have multiple users experiencing the field trip at once. This is something that can be taken into account when implementing non-low cost applications, as they will likely be used with an audience of other students.
+        Virtual field trips are not necessarily in VR, but VR is the focus of this master's project. The current trend when it comes to the use of VR virtual field trips is to use low-level VR applications, meaning VR applications that run on low-cost hardware and that can be created with relatively low cost and effort\cite{vr_low_cost}. An opportunity that is present in these low cost VR applications is to have multiple users experiencing the field trip at once. This is something that can be taken into account when implementing non-low cost applications, as they will likely be used with an audience of other students.
     
     \subsection{Framework for Evaluating Virtual Field Trips}
         \label{sec:framework}
@@ -362,9 +372,15 @@
     \subsection{Stanford Ocean Acidification}
         Another application that explores climate change comes from Stanford University\cite{virtual_field_trips_learning}. In the experiment the effect of the Virtual Field Trip as a medium for learning about ocean acidification is explored. This is one of the more interactive applications that were found, consisting of four studies with four different applications or versions of applications. The user is placed underwater and can interact with the environment like fishes and corals. Depending on the application the user also have one of several avatars to represent their body in the application. The interactions are related to the nature of the Virtual Field Trip, with some of them being counting species with a time limit in different environments. Another of the applications have the user embody a coral and have to collect calcium bicarbonate ions from the water in order to grow. Another test that was conducted was to have a fish bump into the player while a person taps the player gently in real life with an object to simulate the feel of the fish. A common denominator between the applications used is that the user is stationary in the in-game world.
         
+    \subsection{Inland Simulated Nature Walk}
+        The research at the Inland University, discussed in \cref{sec:vft} - Virtual Field Trips, produced an application based on 360$^{\circ}$ video. Although it might not be considered a virtual field trip, it was included because of its work on reconstructing a real area. The simulated nature walk\cite{ive} could either be experienced while sitting down, or while walking on a one-directional, mechanical treadmill. A 360$^{\circ}$ video of walking along a trail plays in its entirety and, in the case of the treadmill, the walking speed is determined by the user. The application did not have any controller input.
+        
+    \subsection{The Virtual UCF Arboretum}
+        Created by the University of Central Florida (\todo{cite?}), the Virtual UCF Arboretum\cite{florida_vft} is a highly detailed virtual recreation of wild nature. The different botanical models in the application are of high precision and created to be as realistic and correct as possible. Different tools were used to achieve the high details, like historic geographic information system (GIS) data, field observations, images, measurements and drone footage. The application is also integrated with a website, offering more information on e.g. different tree species. It also offers different modes of transportation, like walking, teleporting and flying. The flying allows the player get different point of view of the area.
+        
     \subsection{Summary}
         \label{sec:summary}
-        In order to compare the different solutions, they are placed on the two dimensional axis of the research framework presented in \cref{sec:framework}. They are also compared on whether or not they use real images, and if they have replicated a real area in the form of a model. The solutions are also marked depending on if they are a Virtual Field Trip(VFT) or not.
+        In order to compare the different solutions, they are placed on the two dimensional axis of the research framework presented in \cref{sec:framework}. The sensing part of this framework is interpreted as low having only head tracking, medium having head- and hand tracking, and advanced tracking more than medium. They are also compared on whether or not they use real images, and if they have replicated a real area in the form of a model. The solutions are also marked depending on if they are a Virtual Field Trip(VFT) or not.
     
         \FloatBarrier
         \begin{table}[htbp]
@@ -381,6 +397,8 @@
                 Climate Quest & High & Advanced & Yes & No & No \\
                 Player Program & High & Advanced & Yes & No & Yes? \\
                 Stanford Ocean Acidification & Medium & Advanced & No & No & Yes \\
+                Simulated Nature Walk & Low & Basic & No & Yes (video) & No \\
+                Virtual UCF Arboretum & Medium & Plus & Yes & No & Yes \\
                 \ApplicationName & High & Advanced & Yes & Yes & Yes \\
                 \hline
             \end{tabularx}

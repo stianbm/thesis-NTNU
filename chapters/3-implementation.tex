@@ -65,7 +65,7 @@
         Implement image viewer for 360 stereoscopic images \\
         Implement a task for pointing at different parts of the images \\
         \hline
-        Implement a menu for starting and exiting the application \\
+        % Implement a menu for starting and exiting the application \\
         Implement different models for ''Storskredet'' and a way to switch between them \\
         Implement more game mechanics \\
         Improve prefab decorations of the area \\
@@ -90,7 +90,7 @@
         End of March & Implement game mechanics \\
         14th of April & Finish prototype development and freeze code. Finish questionnaires for testing and tasks for the Penn State application. \\
         End of April & Finish user testing with students and finish interview questions for domain experts \\
-        End of Mai & Finish user testing, interviewing domain experts and finish comparison of applications \\
+        15th of Mai & Finish user testing, interviewing domain experts and finish comparison of applications \\
         10 of June & Finish structuring and analyse collected data, finalise the project and the report, export any assets that can be reused by IMTEL \\
         \hline
     \end{tabular}
@@ -98,6 +98,7 @@
     \FloatBarrier
 
 \section{Creating the Ground Model}
+    \label{sec:recreating_ground}
     % Kartverket    - acquire point cloud
     % LasTools      - merge files
     % LasTools      - filter vegetation
@@ -120,9 +121,9 @@
     % Blender       - texture models    (materials, image brush)
     % Blender       - export .fbx and texture image
     % Unity         - import .fbx and texture image
-    As explained more in detail in the Specialisation Project\cite{specialisation}, the topology has been recreated from LiDAR scanning of the area, publicly available at Kartverket\cite{hoydedata}. The complete pipeline for creating a usable model for the ground without sacrificing too much performance is a long and iterative one. In order to get an overview of the process, as well as details and reasoning, the entire pipeline is presented as a numbered list in \cref{tab:pipeline}, followed by sections detailing the steps. The numbered list also contains a column showing which software or service is used in each step.
+    As explained more in detail in the Specialisation Project\cite{specialisation}, the topology was recreated from LiDAR scans of the area, publicly available at Kartverket\cite{hoydedata}. The complete pipeline for creating a usable model for the ground, without sacrificing too much performance, has many steps. In order to get an overview of the process, as well as details and reasoning, the pipeline is presented as a numbered list in \cref{tab:pipeline}, followed by sections detailing the steps. The numbered list also contains a column showing which software or service is used in each step.
     
-   The reconstruction pipeline is based on Specialisation Project which is again based on the master's thesis by Staurset\cite{ski_jump}. The pipeline has been expanded and more thoroughly detailed to provide a better overview of the process.
+   The reconstruction pipeline is based on the Specialisation Project which is again based on the master's thesis by Staurset\cite{ski_jump}. The pipeline has been expanded and more thoroughly detailed to provide a better overview of the process.
     
     \setcounter{rownumbers}{0}
     
@@ -142,14 +143,15 @@
             \rownumber & Meshlab & Recreate normals for points \\
             \rownumber & Meshlab & Recreate surface \\
             \rownumber & Meshlab & Simplify (decimation) and cleaning \\
-            \rownumber & Meshlab & Set origin \\
+            % \rownumber & Meshlab & Set origin \\
             \rownumber & Meshlab & Export model as \texttt{.ply} file \\
             \rownumber & Blender & Cut model into smaller parts\\
-            \rownumber & Blender & Export models as \texttt{.ply} files \\
-            \rownumber & Meshlab & Simplify (decimation) and cleaning \\
-            \rownumber & Meshlab & Export models as \texttt{.ply} files \\
-            \rownumber & Blender & Rework walkway model \\
+            %\rownumber & Blender & Export models as \texttt{.ply} files \\
+            %\rownumber & Meshlab & Simplify (decimation) and cleaning \\
+            %\rownumber & Meshlab & Export models as \texttt{.ply} files \\
+            %\rownumber & Blender & Rework walkway model \\
             \rownumber & Blender & Texture models \\
+            \rownumber & Blender & Set origin \\
             \rownumber & Blender & Export models as \texttt{.fbx} files \\
             \hline
         \end{tabular}
@@ -157,17 +159,18 @@
     \FloatBarrier
     
     \subsection{Acquire Point Cloud from Kartverket}
-        The first step of creating the ground model is to acquire the LiDAR scanning of the area. The scanning is openly available at the Norwegian Mapping Authority - Kartverket. On their web pages, the area in question can be marked and the data files will be made available at a custom link address. Depending on the size of the area, the data will typically be divided into several \texttt{.laz} files.
+        The first step of creating the ground model is to acquire the LiDAR scans of the area. The scans are openly available at the Norwegian Mapping Authority - Kartverket. On their web pages, the area in question can be marked and the data files will be made available at a custom link address. Depending on the size of the area, the data will typically be divided into several \texttt{.laz} files.
         
-        It could also be possible to get terrain models directly from Kartverket. One would then have to find software to open the model files (\texttt{geoTiff}) and find another way to filer out the vegetation.
+        It could also be possible to get terrain models directly from Kartverket. One would then have to find software to open the model files (\texttt{geoTiff}) and find another way to filter out the vegetation.
     
     \subsection{Filter with LasTools}
         LasTools\cite{lastools} is a semi-open source software developed by rapidlasso. It has several functions to work on point cloud data, where some are completely open source, and others are free to use for non-commercial projects.
         
         With the \texttt{.laz} files available, the most practical thing is to merge the files into one. Afterwards, the terrain can be filtered from the vegetation using one of the only-for-non-commercial functions: \texttt{lasground\_new.exe}. Finally, the point cloud can be exported as a \texttt{.txt} file that Meshlab can read.
     
-    \subsection{Reconstruct Surface with Meshlab}
-        The software used for the surface recreation is Meshlab\cite{LocalChapterEvents:ItalChap:ItalianChapConf2008:129-136}. It is open source and made for working with large point clouds and models, as well as supporting mesh reconstruction. Although it could be a good idea to reduce the size of the point cloud, the model contains a walkway in the valley that is important to keep as precise as possible.
+    \subsection{Simplify and Reconstruct Surface with Meshlab}
+        The software used for the surface recreation is Meshlab\cite{LocalChapterEvents:ItalChap:ItalianChapConf2008:129-136}. The software is open source and made for working with large point clouds and models, as well as supporting mesh reconstruction. %Although it could be a good idea to reduce the size of the point cloud, the model contains a walkway in the valley that is important to keep as precise as possible.
+        In order to reduce the complexity of the ground model, the point cloud was sub-sampled outside of the important area, the river and the walkway. It was sub-sampled to be about 1 point per 1 model unit in Meshlab.
         
         \FloatBarrier
         \begin{figure}[htbp]
@@ -178,36 +181,43 @@
         \end{figure}
         \FloatBarrier
         
-        Screened Poisson Surface Reconstruction\cite{kazhdan2013screened} was used to recreate the ground model from the point cloud. It relies on the points having normals, so these normals had to be calculated first. The reconstructing algorithm was tested with different reconstructing depths where the choice landed on 12. This resulted in longer computing time but a very good reconstruction quality. The model was also cleaned for duplicate edges and vertices without normals.
+        Screened Poisson Surface Reconstruction\cite{kazhdan2013screened} was used to recreate the ground model from the point cloud. It relies on the points having normals, so these normals had to be calculated first. The reconstructing algorithm was tested with different reconstructing depths where the choice landed on 12. This resulted in longer computing time but a good reconstruction quality. The model was also cleaned for duplicate edges and vertices without normals. Afterwards it was exported as \texttt{.ply} file.
         
-        Because the ground model is constructed from points, and the points have gps coordinates, the resulting model has a very large offset from its local origin. Although a better practise would be to keep these coordinates, as they could be useful information later, they made it hard to locate the model in programs like Blender. Therefore the origin of the model was reset to approximately the centre of the geometry. The model was exported as a \texttt{.ply} file as it can be read by both Blender and Meshlab and has good compression.
+        %Because the ground model is constructed from points, and the points have gps coordinates, the resulting model has a very large offset from its local origin. Although a better practise would be to keep these coordinates, as they could be useful information later, they made it hard to locate the model in programs like Blender. Therefore the origin of the model was reset to approximately the centre of the geometry. The model was exported as a \texttt{.ply} file as it can be read by both Blender and Meshlab and has good compression.
+        
+    %\subsection{Simplify Model in Meshlab}
+        %With the model divided into different parts, they can be simplified tailored to their importance. The Quadratic Edge Collapse Decimation algorithm was used to achieve this. This simplification allows to preserve the general topology, as well as the edges of the final model. This is important as the different parts of the model need to fit together at the end. The simplification was controlled by stating the percentage of vertices that should survive. Different percentages was tested for the ground models, to trade off quality against file size. As the models had a very high vertex count, the walkway was scaled to 15 \% of original vertex count, the main area was set to 2 \% and the rest were set to 0.1 \%. In \cref{fig:post_simplification} this simplification is most visible in the outer area.
+        
     
-    \subsection{Cut Model in Blender}
-        Blender\cite{blender} is a versatile, open source software with many different features. It was used to further rework and texture the model where Meshlab proved less appropriate. It was first used to partition the model into three smaller areas that would be simplified at different rates. This partitioning can be seen in \cref{fig:model_original}. The reasoning behind the partition is to cut the model into the part that the player will move on, the are they will look at most, and the part they are only supposed to view at a distance or not at all. This will also allow parts of the model to be worked on in isolation from the rest.
+    \subsection{Cut the Model in Blender}
+        Blender\cite{blender} is a versatile, open source software with many different features. It was used to further rework and texture the model where Meshlab proved less appropriate. It was first used to partition the model into three areas to be used for different purposes. This partitioning can be seen in \cref{fig:model_original}.
+        %The reasoning behind the partition is to cut the model into the part that the player will move on, the are they will look at most, and the part they are only supposed to view at a distance or not at all. This will also allow parts of the model to be worked on in isolation from the rest.
+        This partitioning allows for reworking the area the player will walk on and also to switch out the model for the Storskredet landslide. It also allows to define a game area for teleporting, and have a water tight mesh collider for areas where other models will be swapped in.
         
         \FloatBarrier
         \begin{figure}[htbp]
             \centering
-            \includegraphics[width=\ImageWidth]{figures/ground_partitioning.PNG}
-            \caption{Partitioning of the Ground Model Before Simplification}
+            \includegraphics[width=\ImageWidth]{figures/ground_simplified_cut.PNG}
+            \caption{Partitioning of the Ground Model After Simplification}
             \label{fig:model_original}
         \end{figure}
         \FloatBarrier
     
-    \subsection{Simplify Model in Meshlab}
-        With the model divided into different parts, they can be simplified tailored to their importance. The Quadratic Edge Collapse Decimation algorithm was used to achieve this. This simplification allows to preserve the general topology, as well as the edges of the final model. This is important as the different parts of the model need to fit together at the end. The simplification was controlled by stating the percentage of vertices that should survive. Different percentages was tested for the ground models, to trade off quality against file size. As the models had a very high vertex count, the walkway was scaled to 15 \% of original vertex count, the main area was set to 2 \% and the rest were set to 0.1 \%. In \cref{fig:post_simplification} this simplification is most visible in the outer area.
+    \subsection{Texture Model and Set Origin in Blender}
+        %Although the recreation of the walkway was successful, the omnidirectional treadmill needs more space than a person would normally need. This is because it is less precise than actual walking, as well as a little harder to control. To accommodate this the walkway was reworked in Blender to provide a flatter surface for the players.
+        The ground model was textured using a satellite image from Google Maps. The texture ground can be seen in \cref{fig:ground_textured} below. Afterwards the origin of the model was moved. This needed to be done because the vertex coordinates from the LiDAR point cloud was still preserved in the model, placing the actual topography some 7000 kilometres from the model's origin. The models were offset $[x, y, z] = [-530447, -6945400, -854]$. This offset was applied to all models so they could still be automatically placed relative to one another. The coordinates of the point cloud were in \textbf{UTM 32N} with \textbf{EPSG 25832}. Finally the ground models were exported as \texttt{.fbx} files, as Unity does not support the \texttt{.ply} format.
         
         \FloatBarrier
-        \begin{figure}[htbp]
+        \begin{figure}
             \centering
-            \includegraphics[width=\ImageWidth]{figures/post_simplification.PNG}
-            \caption{Ground Model After Simplification}
-            \label{fig:post_simplification}
+            \includegraphics[width=\ImageWidth]{figures/ground_textured.PNG}
+            \caption{Ground Textured with Satellite Imagery}
+            \label{fig:ground_textured}
         \end{figure}
         \FloatBarrier
-    
-    \subsection{Rework and Texture Model in Blender}
-        Although the recreation of the walkway was successful, the omnidirectional treadmill needs more space than a person would normally need. This is because it is less precise than actual walking, as well as a little harder to control. To accommodate this the walkway was reworked in Blender to provide a flatter surface for the players. When the three ground models were ready, they were textured using a satellite image from Google Maps. Finally the ground models were exported as \texttt{.fbx} files, as Unity does not support the \texttt{.ply} format.
+        
+        
+        \begin{comment}
         
         \FloatBarrier
         \begin{figure}[htbp]
@@ -222,6 +232,8 @@
             \end{minipage}
         \end{figure}
         \FloatBarrier
+        
+        \end{comment}
 
 \section{Implementation in Unity}
     % How stuff was made in Unity, potentially code snippets.
@@ -229,18 +241,143 @@
         % Class diagram
         % Component interaction
         % Preload scene, dontdestroyonload
+        % Extending/inheriting existing scripts
+        The main building blocks of Unity are \textit{scenes}. These are individual hierarchies of \textit{transforms}, where the transforms in turn have different \textit{components} attached to them. All the objects in a scene are therefore transforms with components, structured in the scene graph hierarchy. The scene graph and components, like Image Viewer and Object Spawner, attached to the ''Walkway11'' transform can be seen in \cref{fig:unity} below.
+        
+        \FloatBarrier
+        \begin{figure}
+            \centering
+            \includegraphics[width=\ImageWidth]{figures/unity.PNG}
+            \caption{Left: Hierarchical Scene Graph, Right: Components Attached to the Selected Transform}
+            \label{fig:unity}
+        \end{figure}
+        \FloatBarrier
+        
+        Because of the way Unity is structured, it is highly recommended to use \textbf{component oriented} code. This means that code features are loosely coupled and therefore easier to change and reuse. This can be seen in the image above where the components are stand-alone features that are attached to the transform, instead of being hard-coded. Unity has three main ways of supporting the component oriented approach:
+        
+        \begin{itemize}
+            \item \textbf{Components} \\
+            As described, components are added to transforms to make up the different objects in the scene graph.
+            
+            \item \textbf{Linking} \\
+            Transforms, and their components, can be linked to components. This can be seen in the Image Viewer component in \cref{fig:unity} were transforms like VR Camera have been linked. The transforms can also be searched by name or type in scripts.
+            
+            \item \textbf{Events} \\
+            Functions without input parameters or return values can be linked and triggered by events, as seen in \cref{fig:unity} in the Image Viewer component. This allows for components to be loosely coupled to each other without the need for hard-coding their interactions.
+        \end{itemize}
+        
+        The main connections between the different components can be seen below in \cref{fig:component_interaction_diagram}. These connections form the main gameplay mechanics of the application.
+        
+        \FloatBarrier
+        \begin{figure}
+            \centering
+            \includegraphics[width=\ImageWidth]{figures/component_interaction_diagram.png}
+            \caption{Component Interaction Diagram}
+            \label{fig:component_interaction_diagram}
+        \end{figure}
+        \FloatBarrier
+        
+        The interaction can be divided into five main areas:
+        
+        \begin{itemize}
+            \item \textbf{The Player} \\
+            This is the object necessary for movement, looking around with the VR camera and viewing and using the hands. This is the largest and most complicated object, but has been simplified as it has many internal workings.
+            
+            \item \textbf{The teleport} \\
+            The teleporter is very simple object in the application, but requires linking to the player to be able t move it.
+            
+            \item \textbf{The Hand Lasers} \\
+            This component needs to be linked to the hands of the player in order to activate and deactivate the laser pointer objects native to the hands. It also activates and deactivates logic that allows the pointers to activate other objects.
+            
+            \item \textbf{The Image Viewer} \\
+            These are the main gameplay mechanics and have to be linked to the player and camera in order to set the culling mask and change the view for the player. It also sets of events when entering and exiting image mode, allowing game world modifiers to be attached if wanted.
+            
+            \item \textbf{Game World Modifiers} \\
+            These are simple objects that manipulate the game world itself without the need for integration with the other main objects. They create, destroy, activate and deactivate parts of the game world.
+        \end{itemize}
     
     \subsection{The Player}
         % Add treadmill to SteamVR player
+        % Add teleport functionality for use without treadmill
+        The player object was created by combining two existing player prefabs from Steam VR and the Omni SDK. The player from Omni SDK is focused on using the Virtuix Omni omnidirectional treadmill as movement input, whereas the Steam VR player has a lot of built-in support for the hand controllers, but is meant to be standing still. The new player was created by adding the Steam VR player as a child in the Omni player and deleting the original VR camera in the Omni player, as there is already one present in the Steam VR player. It can be compared to simply placing the Steam VR player ''on wheels''. This resulted in a player controlled by the Virtuix Omni, but with all the support and integration of the Steam VR player, like adding teleportation as an alternative mode of transportation if a treadmill is unavailable.
+        
+        \todo{Include image of hierarchy combination?}
     
     \subsection{Viewing Stereoscopic 360 Images}
         In order to view the stereoscopic 360 images, the tutorial of Heavers\cite{skybox_images} was followed. This solution uses a custom shader to project the images to the skybox of the game world. This method can be used by loading a new empty scene with the custom skybox or change the skybox of the main world. The latter way was chosen in an effort to reduce load time when activating the image mode. When activating the image mode, the rest of the game world is hidden from the player, and the skybox material is changed to the appropriate image.
         
-        \todo{Write more once ImageViewer feature is 100\% done}
+        To control what was to be masked and what was to be shown in the image mode, layers and culling masks were used. The culling mask is a feature in Unity cameras that determines which layers are visible and not. The objects that should be visible were assigned the ''ActiveInImage'' layer. This meant that some objects, like the buttons for toggling image mode, had to be assigned layers at runtime. This also required some changes in Steam VR resources as it had not implemented layers as a part of e.g. spawning hand models or using laser pointers. The activation button can be seen under in \cref{fig:image_viewer}.
+        
+        \FloatBarrier
+        \begin{figure}
+            \centering
+            \includegraphics[width=\ImageWidth]{figures/image_viewer_3.PNG}
+            \caption{Button for Toggling Image Mode}
+            \label{fig:image_viewer}
+        \end{figure}
+        \FloatBarrier
+        
+        \todo{Screenshot video without scene view}
+        
+    \subsection{Point-and-Click Tasks}
+        In order to engage the players, point-and-click tasks were created. These tasks were activated while in ''image mode''. As the tasks are component based, they could also be used outside of the image mode, but that could be problematic when the player can move around. The task were made textboxes, Steam VR laserpointers and simple plane objects. The textboxes instructed the player on what to point at. The Laserpointers visualized the pointing and activated components on the planes. The planes were placed to cover the area of the image that should be pointed at and was then turned invisible. The planes were shown with a highlighter around its edge after it was activated by the user. The Steam VR laserpointers required some reworking to be able to see through certain objects.
+        
+        \FloatBarrier
+        \begin{figure}[htbp]
+            \centering
+            \begin{minipage}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{figures/point_and_click.PNG}
+                \caption{Player Pointing}
+            \end{minipage}
+            \begin{minipage}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{figures/point_and_click_clicked.PNG}
+                \caption{Player Clicked}
+            \end{minipage}
+        \end{figure}
+        \FloatBarrier
     
     \subsection{Different Landslide Models}
+        A tradition of the actual field course it to scan one of the landslides in the area with LiDAR. These scans have been used in software to analyse the development of the landslide. Because of this there were several point clouds of the landslide available to be reconstructed and included in the application. They were reconstructed in the same way as the ground model in \cref{sec:recreating_ground}, having the same offset to be placed automatically. The landslides could then be toggled by setting their active status to true or false.
+        
+        The interface for selecting the landslide models was a linear drive with a shaft and table from Steam VR. The input of the linear drive was then used to activate the landslides, depending on it's position. The interface can be seen below in \cref{fig:landslide_handler}:
+        
+        \FloatBarrier
+        \begin{figure}
+            \centering
+            \includegraphics[width=\ImageWidth]{figures/landslide_handler_2.PNG}
+            \caption{The Interface for Choosing Landslide Models}
+            \label{fig:landslide_handler}
+        \end{figure}
+        \FloatBarrier
+        
+        \todo{Screenshot video without scene view}
+    
+    \subsection{Teleporter}
+        In order to decrease the amount of cosmetic decoration that had to be done, and to keep the player's interest, the game area was reduced from the whole valley to a part where examples of everything interesting was. This meant however that the player had to travel down a steep 20m high valley side. This would not be ideal for either of the movement options. This was solved by adding a teleporter that sets the position and rotation of the player to the target teleport station. For simplicity it reuses the button from the image viewers, but use a different colour to signal the same usage, but different effect. The teleporter is shown in \cref{fig:teleporter} below:
+        
+        \FloatBarrier
+        \begin{figure}
+            \centering
+            \includegraphics[width=\ImageWidth]{figures/teleporter.PNG}
+            \caption{The Teleporter for Moving the PLayer}
+            \label{fig:teleporter}
+        \end{figure}
+        \FloatBarrier
+    
+    \subsection{Toggling Trees}
+        A feature discovered in early prototype testing was the ability to toggle the trees on and off. The trees were added as an aesthetic, but the shape of the valley itself can be of interest in geography. So a button was introduced that sets the parent of the trees, and therefore all the children, to active or inactive. Like the teleporter, it reuses the button from the image viewer, but with a different colour, as shown below in \cref{fig:toggle_tree}.
+        
+        \FloatBarrier
+        \begin{figure}
+            \centering
+            \includegraphics[width=\ImageWidth]{figures/toggel_trees.PNG}
+            \caption{Butt for Toggling the Tree Models}
+            \label{fig:toggle_tree}
+        \end{figure}
+        \FloatBarrier
     
     \subsection{Decorating the Game World}
+        In order to make the application more engaging and lifelike, models of trees, grass and stones were added to areas where they appear in real life. Additionally, as the satellite photograph used to texture the area only looks good at a distance, the main game area was re-textured. The tool for both of these aesthetic changes was Polybrush\cite{polybrush}. It is tool for Unity available for free that is used to paint with textures and place models on the surface of other models.
 
 \section{Achieved Milestones}
     % A table documenting achieved milestones: when and what
@@ -259,7 +396,12 @@
             2020-02-13 & Supervisor meeting to discuss research questions and gameplay elements \\
             2020-02-25 & User testing of both apps by geography students \\
             2020-02-27 & Domain expert test of application \\
-            2020-03-27 & \todo{Test on visitors to lab, maybe just Penn State app} \\
+            2020-04-17 & Soft code freeze -- last feature added to code \\
+            2020-05-01 & Code freeze -- last fix added to code \\
+            2020-05-05 & Distributed application, video and questionnaire \\
+            2020-05-08 & Patched bug in code \\
+            2020-05-15 & \todo{Performed last interview with domain experts} \\
+            2020-05-18 & \todo{Data collection freeze -- no new answers} \\
             \hline
         \end{tabular}
         \caption{Achieved milestones}
